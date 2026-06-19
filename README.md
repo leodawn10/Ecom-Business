@@ -10,13 +10,8 @@ corridor, scroll-driven heritage storytelling, and museum-grade typography.
 
 ---
 
-## Quick start
 
-```bash
-npm install
-cp .env.example .env.local   # fill in keys as features come online
-npm run dev                  # http://localhost:3000
-```
+
 
 Requires **Node ≥ 20** (tested on Node 26). First `npm run dev` will fetch the
 Google fonts (Cormorant Garamond + Inter) via `next/font`.
