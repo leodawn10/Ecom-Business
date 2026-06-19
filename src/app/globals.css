@@ -1,0 +1,217 @@
+@import 'tailwindcss';
+
+/* ════════════════════════════════════════════════════════════════════════
+   BINA ECom — Design System Tokens
+   Heritage metalware: brass, copper, bell-metal, silver, ivory, stone.
+   Palette tuned in OKLCH for perceptually-even luxe gradients.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Surfaces (the "palace at dusk" dark base) ── */
+  --color-void: oklch(14% 0.012 60);
+  --color-charcoal: oklch(18% 0.014 55);
+  --color-ink: oklch(22% 0.018 50);
+  --color-stone: oklch(34% 0.02 60);
+  --color-deep-brown: oklch(27% 0.05 50);
+
+  /* ── Metals (the heroes) ── */
+  --color-brass: oklch(76% 0.13 85);
+  --color-brass-deep: oklch(62% 0.13 78);
+  --color-gold: oklch(82% 0.14 90);
+  --color-gold-bright: oklch(88% 0.13 95);
+  --color-copper: oklch(64% 0.14 45);
+  --color-copper-deep: oklch(52% 0.14 42);
+  --color-bell-metal: oklch(70% 0.06 110);
+  --color-silver: oklch(85% 0.008 250);
+
+  /* ── Light neutrals (ivory paper, museum card) ── */
+  --color-ivory: oklch(95% 0.012 90);
+  --color-parchment: oklch(91% 0.02 85);
+  --color-sand: oklch(80% 0.03 80);
+
+  /* ── Semantic ── */
+  --color-bg: var(--color-void);
+  --color-surface: var(--color-charcoal);
+  --color-text: var(--color-ivory);
+  --color-text-muted: oklch(72% 0.02 70);
+  --color-accent: var(--color-brass);
+  --color-accent-strong: var(--color-gold);
+  --color-line: oklch(40% 0.02 60 / 0.35);
+
+  /* ── Typography scale (fluid) ── */
+  --text-xs: clamp(0.72rem, 0.69rem + 0.15vw, 0.8rem);
+  --text-sm: clamp(0.82rem, 0.78rem + 0.2vw, 0.92rem);
+  --text-base: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
+  --text-lg: clamp(1.2rem, 1.08rem + 0.6vw, 1.5rem);
+  --text-xl: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
+  --text-2xl: clamp(2.2rem, 1.6rem + 3vw, 4rem);
+  --text-hero: clamp(2.8rem, 1rem + 8vw, 9rem);
+
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+
+  --tracking-luxe: 0.18em;
+  --tracking-wide: 0.06em;
+
+  /* ── Spacing rhythm ── */
+  --space-section: clamp(5rem, 3rem + 8vw, 12rem);
+  --space-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
+
+  /* ── Motion ── */
+  --duration-fast: 200ms;
+  --duration-normal: 480ms;
+  --duration-slow: 900ms;
+  --duration-cinematic: 1800ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-luxe: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ── Depth ── */
+  --shadow-soft: 0 1px 2px oklch(0% 0 0 / 0.3), 0 8px 30px oklch(0% 0 0 / 0.35);
+  --shadow-lift: 0 20px 60px -12px oklch(0% 0 0 / 0.6);
+  --glow-brass: 0 0 60px -10px oklch(76% 0.13 85 / 0.45);
+
+  /* ── Radii ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+}
+
+/* ── Web fonts loaded via next/font expose CSS vars; declare fallbacks ── */
+:root {
+  color-scheme: dark;
+}
+
+/* ════════════════════════════ Base ════════════════════════════ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto; /* Lenis owns scrolling */
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* subtle grain + radial palace light */
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, oklch(27% 0.05 50 / 0.55), transparent 60%),
+    radial-gradient(90% 60% at 50% 110%, oklch(22% 0.04 60 / 0.6), transparent 55%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-brass);
+  color: var(--color-void);
+}
+
+/* Hide native scrollbar (Lenis-driven), keep accessibility focus rings */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ── Reusable utilities ── */
+.text-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-luxe);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.gold-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-brass-deep) 0%,
+    var(--color-gold-bright) 45%,
+    var(--color-brass) 70%,
+    var(--color-gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--color-line), transparent);
+}
+
+/* Content pages clear the fixed navbar */
+.page-shell {
+  padding-top: clamp(6.5rem, 5rem + 6vw, 9rem);
+  padding-bottom: var(--space-section);
+  min-height: 100svh;
+}
+
+/* Native cursor is hidden only while the bespoke cursor is live */
+@media (pointer: fine) {
+  html.has-lux-cursor,
+  html.has-lux-cursor * {
+    cursor: none;
+  }
+  html.has-lux-cursor input,
+  html.has-lux-cursor textarea,
+  html.has-lux-cursor [contenteditable] {
+    cursor: text;
+  }
+}
+
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

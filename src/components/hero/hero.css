@@ -1,0 +1,130 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* legibility scrim so type always reads over the metal */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 45% at 50% 52%,
+    oklch(14% 0.01 60 / 0.55),
+    transparent 70%
+  );
+}
+
+.hero__lamp-fallback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    40% 50% at 50% 45%,
+    oklch(76% 0.13 85 / 0.18),
+    transparent 70%
+  );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 var(--space-gutter);
+  max-width: 70rem;
+  pointer-events: none;
+}
+
+.hero__content :where(a, button) {
+  pointer-events: auto;
+}
+
+.hero__eyebrow {
+  margin-bottom: 1.5rem;
+}
+
+.hero__title {
+  font-size: var(--text-hero);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.92;
+  text-shadow: 0 12px 60px oklch(0% 0 0 / 0.6);
+}
+
+.hero__title-accent {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero__sub {
+  margin: 2rem auto 0;
+  max-width: 38rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+.hero__cta {
+  margin-top: 2.75rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(var(--color-brass), transparent);
+  animation: scrollPulse 2.4s var(--ease-out-expo) infinite;
+  transform-origin: top;
+}
+
+@keyframes scrollPulse {
+  0% { transform: scaleY(0); opacity: 0; }
+  40% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+@media (max-width: 640px) {
+  .hero__cta {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+  .hero__cta > * {
+    width: 100%;
+  }
+  .hero__scroll {
+    bottom: 1.2rem;
+  }
+}
